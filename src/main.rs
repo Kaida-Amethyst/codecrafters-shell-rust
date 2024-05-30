@@ -14,9 +14,14 @@ fn exit(args: &str) {
     std::process::exit(0);
 }
 
+fn echo(args: &str) {
+    print!("{}", args);
+}
+
 fn get_builtin_commands() -> HashMap<&'static str, fn(&str)> {
     let mut fn_map: HashMap<&'static str, fn(&str)> = HashMap::new();
     fn_map.insert("exit", exit);
+    fn_map.insert("echo", echo);
     fn_map
 }
 
@@ -33,7 +38,7 @@ fn main() {
         let mut input = String::new();
         stdin.read_line(&mut input).unwrap();
 
-        let mut input_command = input.split_whitespace();
+        let mut input_command = input.splitn(2, char::is_whitespace);
         // get command and args, check if they are none
         let (command, args) = (input_command.next(), input_command.next());
 
