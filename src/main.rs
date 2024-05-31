@@ -1,41 +1,8 @@
 #[allow(unused_imports)]
 use std::io::{self, Write};
 
-use std::collections::HashMap;
-
-fn exit(args: &str) {
-    if args.is_empty() {
-        std::process::exit(0);
-    }
-    // parse args to int
-    if let Some(code) = args.parse::<i32>().ok() {
-        std::process::exit(code);
-    }
-    std::process::exit(0);
-}
-
-fn echo(args: &str) {
-    print!("{}", args);
-}
-
-fn command_type(args: &str) {
-    let builtin_commands = get_builtin_commands();
-    let input_command = args.split_whitespace().next();
-    if let Some(command) = input_command {
-        match builtin_commands.get(command) {
-            Some(_) => println!("{} is a shell builtin", command),
-            None => println!("{} not found", command),
-        }
-    }
-}
-
-fn get_builtin_commands() -> HashMap<&'static str, fn(&str)> {
-    let mut fn_map: HashMap<&'static str, fn(&str)> = HashMap::new();
-    fn_map.insert("exit", exit);
-    fn_map.insert("echo", echo);
-    fn_map.insert("type", command_type);
-    fn_map
-}
+mod builtin;
+use builtin::get_builtin_commands;
 
 fn main() {
     // valid commands
