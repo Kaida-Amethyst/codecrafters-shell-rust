@@ -51,7 +51,7 @@ fn command_type(args: &str) {
             Some(_) => println!("{} is a shell builtin", command),
             None => match find_command_in_env(command) {
                 Some(path) => println!("{} is {}/{}", command, path, command),
-                None => println!("{}: command not found", command),
+                None => println!("{} not found", command),
             },
         }
     }
