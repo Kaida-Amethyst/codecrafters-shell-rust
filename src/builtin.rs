@@ -17,6 +17,16 @@ fn echo(args: &str) {
     print!("{}", args);
 }
 
+fn pwd(args: &str) {
+    if args.is_empty() {
+        if let Ok(path) = std::env::current_dir() {
+            println!("{}", path.display());
+        }
+    } else {
+        println!("pwd: too many arguments");
+    }
+}
+
 fn check_command_in_path(command: &str, path: &str) -> bool {
     let path = Path::new(path);
     if let Ok(entries) = fs::read_dir(path) {
@@ -64,5 +74,6 @@ pub fn get_builtin_commands() -> HashMap<&'static str, fn(&str)> {
     fn_map.insert("exit", exit);
     fn_map.insert("echo", echo);
     fn_map.insert("type", command_type);
+    fn_map.insert("pwd", pwd);
     fn_map
 }
