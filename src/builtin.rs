@@ -27,6 +27,26 @@ fn pwd(args: &str) {
     }
 }
 
+fn cd(args: &str) {
+    let args = args.trim();
+
+    match args {
+        "" => {
+            if let Ok(home) = std::env::var("HOME") {
+                if let Err(e) = std::env::set_current_dir(home) {
+                    println!("cd: {}", e);
+                }
+            }
+        }
+        _ => {
+            let new_dir = Path::new(args);
+            if let Err(_) = std::env::set_current_dir(&new_dir) {
+                println!("cd: {}: No such file or directory", new_dir.display());
+            }
+        }
+    }
+}
+
 fn check_command_in_path(command: &str, path: &str) -> bool {
     let path = Path::new(path);
     if let Ok(entries) = fs::read_dir(path) {
@@ -75,5 +95,6 @@ pub fn get_builtin_commands() -> HashMap<&'static str, fn(&str)> {
     fn_map.insert("echo", echo);
     fn_map.insert("type", command_type);
     fn_map.insert("pwd", pwd);
+    fn_map.insert("cd", cd);
     fn_map
 }
