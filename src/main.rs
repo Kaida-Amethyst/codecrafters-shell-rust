@@ -25,6 +25,8 @@ fn execute_program_in_path(command: &str, args: &str) {
     if let Some(path) = find_command_in_env(command) {
         let command = format!("{}/{}", path, command);
         execute_program(&command, args);
+    } else {
+        println!("Command not found: {}", command);
     }
 }
 
