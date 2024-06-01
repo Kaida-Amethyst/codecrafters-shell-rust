@@ -41,7 +41,7 @@ fn cd(args: &str) {
         _ => {
             let new_dir = Path::new(args);
             if let Err(_) = std::env::set_current_dir(&new_dir) {
-                println!("cd: {}: No such file or directory", new_dir.display());
+                println!("{}: No such file or directory", new_dir.display());
             }
         }
     }
