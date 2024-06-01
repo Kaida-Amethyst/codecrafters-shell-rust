@@ -26,7 +26,7 @@ fn execute_program_in_path(command: &str, args: &str) {
         let command = format!("{}/{}", path, command);
         execute_program(&command, args);
     } else {
-        println!("Command not found: {}", command);
+        println!("{}: command not found", command);
     }
 }
 
