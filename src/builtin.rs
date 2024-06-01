@@ -27,7 +27,9 @@ fn check_command_in_path(command: &str, path: &str) -> bool {
     false
 }
 
-fn find_command_in_env(command: &str) -> Option<String> {
+// Find command in env
+// Return the path of the command
+pub fn find_command_in_env(command: &str) -> Option<String> {
     let env_path = if let Ok(path) = std::env::var("PATH") {
         path
     } else {
