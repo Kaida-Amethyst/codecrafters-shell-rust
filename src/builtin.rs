@@ -31,11 +31,13 @@ fn cd(args: &str) {
     let args = args.trim();
 
     match args {
-        "" => {
+        "" | "~" => {
             if let Ok(home) = std::env::var("HOME") {
                 if let Err(e) = std::env::set_current_dir(home) {
                     println!("cd: {}", e);
                 }
+            } else {
+                println!("cd: HOME not set");
             }
         }
         _ => {
